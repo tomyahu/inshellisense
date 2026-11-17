@@ -43,7 +43,7 @@ function loadSpecsSet(speclist: string[], versionedSpeclist: string[], specsPath
     .sort();
 }
 
-loadSpecsSet(speclist as string[], versionedSpeclist, specResourcesPath);
+// loadSpecsSet(speclist as string[], versionedSpeclist, specResourcesPath);
 
 const loadedSpecs: { [key: string]: Fig.Spec } = {};
 let generatedSpecs = new WeakMap<Fig.Spec, Map<string, Fig.Subcommand>>();
