@@ -5,8 +5,10 @@ import os from "node:os";
 import { Command } from "commander";
 import { Shell } from "../utils/shell.js";
 import { initializeRuntime } from "../runtime/initialize.js";
+import { loadConfig } from "../utils/config.js";
 
-const action = async (input: string) => {
+const action = (program: Command) => async (input: string) => {
+  await loadConfig(program)
   const shell = os.platform() === "win32" ? Shell.Cmd : Shell.Bash;
   const { getSuggestions } = await initializeRuntime(shell);
   const suggestions = await getSuggestions(input, process.cwd(), shell);
@@ -17,6 +19,6 @@ const action = async (input: string) => {
 const cmd = new Command("complete");
 cmd.description(`generates a completion for the provided input`);
 cmd.argument("<input>");
-cmd.action(action);
+cmd.action(action(cmd));
 
 export default cmd;
